@@ -1,4 +1,4 @@
-#!/home/nzangi/Documents/django/venv/bin/python3
+#!/home/nzangi/Documents/django-project-two/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
