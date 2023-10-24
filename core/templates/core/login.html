@@ -1,27 +1,20 @@
 
 {% extends 'core/base.html' %}
 
-{% block title %}Sign Up {% endblock %}
+{% block title %}Login Page{% endblock %}
 {% block content %}
     <div class="w-1/2 my-6 p-6 mx-auto bg-gray-100 rounded-xl">
-        <h2 class="mb-6 text-3xl">Sign Up</h2>
+        <h2 class="mb-6 text-3xl">Login</h2>
         <form method="post" action=".">
             {% csrf_token %}
             <div class="mb-3">
                 <lable class="inline-block mb-2">Username</lable><br>
                 {{ form.username }}
             </div>
-            <div class="mb-3">
-                <lable class="inline-block mb-2">E-mail</lable><br>
-                {{ form.email }}
-            </div>
-            <div class="mb-3">
-                <lable class="inline-block mb-2">Password</lable><br>
-                {{ form.password1 }}
-            </div>
+
             <div class="mb-3">
                 <lable class="inline-block mb-2">Repeat Password</lable><br>
-                {{ form.password2 }}
+                {{ form.password }}
             </div>
 
             {% if form.errors or form.non_field_errors %}
@@ -32,7 +25,7 @@
                     {{ form.non_field_errors }}
                 </div>
             {% endif %}
-            <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Sign Up</button>
+            <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Login</button>
         </form>
 
     </div>
