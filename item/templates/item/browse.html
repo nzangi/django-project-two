@@ -4,11 +4,26 @@
 
 {% block content %}
     <div class="pb-6 grid grid-cols-4 gap-4 bg-gray-100 rounded-xl">
-        <div class="col-span-1">
+        <div class="col-span-1 ml-10">
             <form method="get" action="{% url 'item:browse'%}">
-                <input name="query" class="w-80% py-4 px-6 border ml-10 mt-10 rounded-xl" type="text" value="{{ query }}" placeholder="Search Item...">
-                <button class="mt-2 py-4 px-8 text-lg ml-20 bg-teal-500 text-white rounded-xl">Search</button>
+                <input name="query" class="w-80% py-4 px-6 border  mt-10 rounded-xl" type="text" value="{{ query }}" placeholder="Search Item...">
+                <button class="mt-2 py-4 px-8 text-lg ml-10 bg-teal-500 text-white rounded-xl">Search</button>
             </form>
+
+            <hr class="my-6">
+            <p class="font-semibold">Categories</p>
+            <ul>
+                {% for category in categories %}
+                    <li class="py-2 px-2 rounded-xl {% if category.id == category_id %} bg-gray-200 {% endif %}">
+                        <a href="{% url 'item:browse' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <hr class="my-6">
+            <p class="font-semibold">Clear Filters</p>
+            <ul>
+                <li><a href="{% url 'item:browse' %}" class="mt-4 m py-4 px-8 inline-block bg-yellow-500 text-lg rounded-xl text-white">Clear</a></li>
+            </ul>
         </div>
         <div class="col-span-3 rounded-xl mr-10">
             {% for item in items %}
