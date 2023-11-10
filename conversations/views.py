@@ -1,12 +1,14 @@
-from django.shortcuts import render,get_object_or_404,redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from item.models import Item
 from .models import Messages
 from .forms import ContactMessagesForm
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
-
-def new_conversation(request,item_pk):
-    item = get_object_or_404(Item,pk=item_pk)
+@login_required
+def new_conversation(request, item_pk):
+    item = get_object_or_404(Item, pk=item_pk)
 
     if item.created_by == request.user:
         return redirect('dashboard:index')
@@ -29,12 +31,20 @@ def new_conversation(request,item_pk):
             conversation_messages.created_by = request.user
             conversation_messages.save()
 
-            return redirect('item:detail',pk=item_pk)
+            return redirect('item:detail', pk=item_pk)
 
     else:
         form = ContactMessagesForm()
 
-    return render(request,'conversation/new_message.html',{
+    return render(request, 'conversation/new_message.html', {
         "form": form,
     })
 
+
+@login_required
+def inbox_messages(request):
+    conversations = Messages.objects.filter(members__in=[request.user.id])
+
+    return render(request, 'conversation/inbox.html', {
+        "conversations": conversations
+    })
